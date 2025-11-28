@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "module": "commonjs",
+    "target": "es2021",
+    "baseUrl": ".",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strict": false,
+    "skipLibCheck": true,
+    "paths": {
+      "@worker/*": ["../worker/src/*"],
+      "@api/*": ["./src/*"],
+      "@web/*": ["../web/src/*"]
+    }
+  },
+  "include": ["src/**/*"]
+}
+  
