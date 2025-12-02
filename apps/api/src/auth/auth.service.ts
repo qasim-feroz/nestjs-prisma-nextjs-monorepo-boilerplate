@@ -11,6 +11,7 @@ export class AuthService {
 
   async register(email: string, password: string, name?: string) {
     const hashed = await bcrypt.hash(password, 10);
+    console.log("DATABASE_URL log in Auth service:", process.env.DATABASE_URL);
     const user = await this.prisma.user.create({
       data: { email, password: hashed, name },
     });
