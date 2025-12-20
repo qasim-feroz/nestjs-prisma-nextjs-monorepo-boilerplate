@@ -1,26 +1,83 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Theme colors - Default to warm theme, will be overridden by ThemeProvider */
+  --background: 45 10% 97%;
+  --foreground: 30 10% 20%;
+  --primary: 180 65% 50%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 30 8% 90%;
+  --secondary-foreground: 30 10% 25%;
+  --muted: 30 8% 92%;
+  --muted-foreground: 30 8% 45%;
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 98%;
+  --accent: 40 12% 93%;
+  --accent-foreground: 30 10% 25%;
+  --border: 30 8% 88%;
+  --input: 30 8% 88%;
+  --ring: 180 65% 50%;
+  --card: 0 0% 100%;
+  --card-foreground: 30 10% 20%;
+  
+  /* Radius */
+  --radius: 0.5rem;
+}
+
+.dark {
+  /* Dark mode colors - Default to warm theme, will be overridden by ThemeProvider */
+  --background: 30 15% 12%;
+  --foreground: 40 10% 92%;
+  --primary: 180 65% 55%;
+  --primary-foreground: 30 15% 12%;
+  --secondary: 30 10% 20%;
+  --secondary-foreground: 40 10% 92%;
+  --muted: 30 10% 20%;
+  --muted-foreground: 35 8% 60%;
+  --destructive: 0 72% 55%;
+  --destructive-foreground: 40 10% 92%;
+  --accent: 30 12% 22%;
+  --accent-foreground: 40 10% 92%;
+  --card: 30 15% 12%;
+  --card-foreground: 40 10% 92%;
+  --border: 30 10% 22%;
+  --input: 30 10% 22%;
+  --ring: 180 65% 55%;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  
+  --font-sans: var(--font-inter);
+  
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  border-color: hsl(var(--border));
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-feature-settings: "rlig" 1, "calt" 1;
 }
