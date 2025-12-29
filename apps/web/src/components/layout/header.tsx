@@ -1,11 +1,14 @@
 "use client"
 
-import { Bell, Search } from "lucide-react"
+import { Bell, Search, LogOut } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { ThemeSwitcher } from "@/components/theme-switcher"
+import { useAuth } from "@/contexts/auth-context"
 
 export function Header() {
+  const { logout } = useAuth()
+
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b border-border bg-background px-4 lg:px-6">
       {/* Search */}
@@ -26,6 +29,10 @@ export function Header() {
         <Button variant="ghost" size="icon">
           <Bell className="h-4 w-4" />
           <span className="sr-only">Notifications</span>
+        </Button>
+        <Button variant="ghost" size="icon" onClick={logout} title="Logout">
+          <LogOut className="h-4 w-4" />
+          <span className="sr-only">Logout</span>
         </Button>
       </div>
     </header>

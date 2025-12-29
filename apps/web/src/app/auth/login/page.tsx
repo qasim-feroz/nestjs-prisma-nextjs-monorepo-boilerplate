@@ -14,32 +14,41 @@ export default function LoginPage() {
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault()
+    e.stopPropagation()
+    
+    if (isLoading) return // Prevent multiple submissions
+    
     setIsLoading(true)
     
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000'}/auth/login`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       })
-      
+ 
       const data = await res.json()
-      
+      console.log('Login response:', data)
+
       if (res.ok) {
-        // Store token if provided
+        // Store token and user info
         if (data.token) {
-          document.cookie = `token=${data.token}; path=/; max-age=604800` // 7 days
+          // Set cookie with proper attributes for cross-origin
+          document.cookie = `token=${data.token}; path=/; max-age=604800; SameSite=Lax` // 7 days
+          // Also store in localStorage as backup
+          localStorage.setItem('token', data.token)
         }
         // Redirect to dashboard
         window.location.href = '/dashboard'
+        return // Prevent any further execution
       } else {
         console.error('Login failed:', data)
         alert(data.message || 'Login failed. Please try again.')
+        setIsLoading(false)
       }
     } catch (error) {
       console.error('Login error:', error)
       alert('An error occurred. Please try again.')
-    } finally {
       setIsLoading(false)
     }
   }

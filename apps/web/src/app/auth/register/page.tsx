@@ -27,12 +27,16 @@ export default function RegisterPage() {
       const data = await res.json()
       
       if (res.ok) {
-        // Store token if provided
+        // Store token and user info
         if (data.token) {
-          document.cookie = `token=${data.token}; path=/; max-age=604800` // 7 days
+          // Set cookie with proper attributes for cross-origin
+          document.cookie = `token=${data.token}; path=/; max-age=604800; SameSite=Lax` // 7 days
+          // Also store in localStorage as backup
+          localStorage.setItem('token', data.token)
         }
         // Redirect to dashboard
         window.location.href = '/dashboard'
+        return
       } else {
         console.error('Registration failed:', data)
         alert(data.message || 'Registration failed. Please try again.')

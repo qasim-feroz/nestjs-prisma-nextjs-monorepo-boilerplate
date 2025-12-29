@@ -1,8 +1,11 @@
-import { Module } from '@nestjs/common';
+import { Module, Global } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
+import { JwtAuthGuard } from './jwt-auth.guard';
+import { ProjectAccessGuard, TaskAccessGuard } from './guards';
 
+@Global()
 @Module({
   imports: [
     JwtModule.register({
@@ -10,9 +13,9 @@ import { AuthController } from './auth.controller';
       signOptions: { expiresIn: '7d' },
     }),
   ],
-  providers: [AuthService],
+  providers: [AuthService, JwtAuthGuard, ProjectAccessGuard, TaskAccessGuard],
   controllers: [AuthController],
-  exports: [AuthService],
+  exports: [AuthService, JwtModule, JwtAuthGuard, ProjectAccessGuard, TaskAccessGuard],
 })
 export class AuthModule {}
 

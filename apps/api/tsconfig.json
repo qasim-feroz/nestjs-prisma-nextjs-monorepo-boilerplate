@@ -10,6 +10,7 @@
     "emitDecoratorMetadata": true,
     "strict": false,
     "skipLibCheck": true,
+    "sourceMap": true,
     "paths": {
       "@worker/*": ["../worker/src/*"],
       "@api/*": ["./src/*"],
