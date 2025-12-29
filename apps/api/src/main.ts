@@ -1,16 +1,17 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { Queue } from 'bullmq';
-import IORedis from 'ioredis';
+import cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(process.env.PORT ?? 3001);
-
-  const connection = new IORedis(process.env.REDIS_URL ?? "redis://127.0.0.1:6379");
-  const taskQueue = new Queue('tasks', { connection });
-
-  await taskQueue.add('send-email', { to: 'test@example.com', body: 'Hello!' });
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+  app.use(cookieParser());
+  app.enableCors({
+    origin: ['http://localhost:3000'],
+    credentials: true,
+  });
+  await app.listen(4000);
+  console.log('Backend running on http://localhost:4000');
 }
 bootstrap();
-
